@@ -442,6 +442,7 @@ with tab1:
             line=dict(color="#2e7d32", width=3),
             marker=dict(size=10, color="#1b5e20"),
             name="Price",
+            hoverinfo="skip",
         ))
         fig.add_hline(y=qtl_to_kg(cur), line_dash="dot", line_color="#aaaaaa", annotation_text="Current baseline")
         fig.update_layout(
@@ -451,8 +452,11 @@ with tab1:
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(255,255,255,0.04)",
             font=dict(color="#e0e0e0"),
+            dragmode=False,
+            xaxis=dict(fixedrange=True),
+            yaxis=dict(fixedrange=True),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False, "staticPlot": True, "scrollZoom": False})
 
         st.markdown('<div class="section-header">🌿 Estimated Yield Risk & Sell Decision</div>', unsafe_allow_html=True)
         yl_cls   = "banner-red" if yl > 20 else "banner-yellow" if yl > 10 else "banner-green"
@@ -896,9 +900,12 @@ with tab5:
             plot_bgcolor="rgba(255,255,255,0.04)",
             paper_bgcolor="rgba(0,0,0,0)",
             font=dict(color="#e0e0e0"),
-            hovermode="x unified",
+            hovermode=False,
+            dragmode=False,
+            xaxis=dict(fixedrange=True),
+            yaxis=dict(fixedrange=True),
         )
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, use_container_width=True, config={"displayModeBar": False, "staticPlot": True, "scrollZoom": False})
 
         s1, s2, s3, s4 = st.columns(4)
         s1.metric("Average Price",    f"Rs.{qtl_to_kg(trend['Modal_Price'].mean()):.2f}/kg")
